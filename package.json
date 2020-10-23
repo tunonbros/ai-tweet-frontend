@@ -1,7 +1,7 @@
 {
-  "name": "material-kit-react",
-  "version": "1.9.0",
-  "description": "Material Kit React. Coded by Creative Tim",
+  "name": "AI-Tweet",
+  "version": "0.0.1",
+  "description": "AI Tweet. A humor page that makes tweets predictions",
   "private": true,
   "main": "src/index.js",
   "dependencies": {
@@ -10,7 +10,7 @@
     "classnames": "2.2.6",
     "history": "4.10.1",
     "moment": "2.26.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "4.14.1",
     "nouislider": "14.5.0",
     "prop-types": "15.7.2",
     "react": "16.13.1",
@@ -29,8 +29,6 @@
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-prettier": "3.1.3",
     "eslint-plugin-react": "7.20.0",
-    "gulp": "4.0.2",
-    "gulp-append-prepend": "1.0.8",
     "prettier": "2.0.5"
   },
   "optionalDependencies": {
@@ -38,7 +36,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build && gulp licenses",
+    "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "lint:check": "eslint . --ext=js,jsx;  exit 0",
