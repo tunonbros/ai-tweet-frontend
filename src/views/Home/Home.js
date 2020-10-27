@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // nodejs library that concatenates classes
 import classNames from "classnames";
 // @material-ui/core components
@@ -24,8 +24,31 @@ const dashboardRoutes = [];
 const useStyles = makeStyles(styles);
 
 const Home = props => {
+
+  const [tweet, setTweet] = useState("unchanged")
+
   const classes = useStyles();
   const { ...rest } = props;
+
+  const submitUsername = () => {
+    const generateUrl = process.env.REACT_APP_API_ENDPOINT + process.env.REACT_APP_GENERATE
+    const data = JSON.stringify({
+      username: 'pepito'
+    })
+    fetch(generateUrl, {
+      method: 'POST',
+      body: data
+    }).then(res => res.json())
+      .then(
+        (result) => {
+          console.log(result)
+          setTweet(result.text)
+        },
+        (error) => {
+          console.log(error)
+        }
+      )
+  }
 
   return (
     <div>
@@ -47,7 +70,7 @@ const Home = props => {
             <GridItem xs={12} sm={12} md={6}>
               <h1 className={classes.title}>What will be their next tweet?</h1>
               <h4>
-                Find out thanks to the GPT-3 powered AI
+                Find out thanks to the AI
               </h4>
             </GridItem>
           </GridContainer>
@@ -72,7 +95,7 @@ const Home = props => {
                       }}
                     />
                     <GridItem xs={12} sm={12} md={4}>
-                      <Button color="primary">Generate tweet</Button>
+                      <Button color="primary" onClick={submitUsername}>Generate tweet</Button>
                     </GridItem>
                   </GridContainer>
                 </form>
@@ -81,6 +104,7 @@ const Home = props => {
           </div>
           <br/>
           <br/>
+          <div className={classes.description}>{tweet}</div>
         </div>
       </div>
       <Footer />
