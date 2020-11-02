@@ -1,36 +1,49 @@
-import React, { useState } from "react";
-// nodejs library that concatenates classes
-import classNames from "classnames";
-// @material-ui/core components
-import { makeStyles } from "@material-ui/core/styles";
-
-// @material-ui/icons
+import React, { useState } from "react"
+import classNames from "classnames"
+import { makeStyles } from "@material-ui/core/styles"
 
 // core components
-import Header from "components/Header/Header.js";
-import Footer from "components/Footer/Footer.js";
-import GridContainer from "components/Grid/GridContainer.js";
-import GridItem from "components/Grid/GridItem.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
-import Button from "components/CustomButtons/Button.js";
-import HeaderLinks from "components/Header/HeaderLinks.js";
-import Parallax from "components/Parallax/Parallax.js";
+import Header from "components/Header/Header.js"
+import Footer from "components/Footer/Footer.js"
+import GridContainer from "components/Grid/GridContainer.js"
+import GridItem from "components/Grid/GridItem.js"
+import CustomInput from "components/CustomInput/CustomInput.js"
+import Button from "components/CustomButtons/Button.js"
+import HeaderLinks from "components/Header/HeaderLinks.js"
+import Parallax from "components/Parallax/Parallax.js"
 
-import styles from "./styles.js";
+import styles from "./styles.js"
+import Tweet from "./Tweet"
 
-
-const dashboardRoutes = [];
-
-const useStyles = makeStyles(styles);
+const dashboardRoutes = []
+const useStyles = makeStyles(styles)
 
 const Home = props => {
+  const [tweets, setTweets] = useState([])
+  const classes = useStyles()
+  const { ...rest } = props
 
-  const [tweet, setTweet] = useState("unchanged")
+  const addTweet = (username) => {
+    const newTweet = {
+      tweetId: tweets.length,
+      text: '',
+      username
+    }
+    setTweets(oldTweets => [newTweet, ...oldTweets])
+    return newTweet.tweetId
+  }
 
-  const classes = useStyles();
-  const { ...rest } = props;
+  const fillTweet = (tweetId, text) => {
+    console.log(tweets)
+    setTweets(oldTweets => oldTweets.map(t => t.tweetId === tweetId ? {
+      ...t,
+      text
+    } : t))
+  }
 
   const submitUsername = () => {
+    const tweetId = addTweet('pepito')
+    console.log(tweets)
     const generateUrl = process.env.REACT_APP_API_ENDPOINT + process.env.REACT_APP_GENERATE
     const data = JSON.stringify({
       username: 'pepito'
@@ -42,7 +55,7 @@ const Home = props => {
       .then(
         (result) => {
           console.log(result)
-          setTweet(result.text)
+          fillTweet(tweetId, result.text)
         },
         (error) => {
           console.log(error)
@@ -102,9 +115,17 @@ const Home = props => {
               </GridItem>
             </GridContainer>
           </div>
+          <div className={classes.description}>
+            {tweets.map((t, idx) => (
+              <Tweet
+                key={idx}
+                username={t.username}
+                text={t.text}
+              />
+            ))}
+          </div>
           <br/>
           <br/>
-          <div className={classes.description}>{tweet}</div>
         </div>
       </div>
       <Footer />
