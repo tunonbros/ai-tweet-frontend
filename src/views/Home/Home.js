@@ -20,6 +20,7 @@ const useStyles = makeStyles(styles)
 
 const Home = props => {
   const [tweets, setTweets] = useState([])
+  const [username, setUsername] = useState("")
   const classes = useStyles()
   const { ...rest } = props
 
@@ -42,11 +43,11 @@ const Home = props => {
   }
 
   const submitUsername = () => {
-    const tweetId = addTweet('pepito')
+    const tweetId = addTweet(username)
     console.log(tweets)
     const generateUrl = process.env.REACT_APP_API_ENDPOINT + process.env.REACT_APP_GENERATE
     const data = JSON.stringify({
-      username: 'pepito'
+      username: username
     })
     fetch(generateUrl, {
       method: 'POST',
@@ -105,6 +106,10 @@ const Home = props => {
                       id="message"
                       formControlProps={{
                         fullWidth: true,
+                      }}
+                      inputProps={{
+                        value: username,
+                        onChange: e => setUsername(e.target.value)
                       }}
                     />
                     <GridItem xs={12} sm={12} md={4}>
