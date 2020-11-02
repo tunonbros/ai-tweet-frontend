@@ -42,7 +42,7 @@ const Home = props => {
     } : t))
   }
 
-  const submitUsername = () => {
+  const submitUsername = (event) => {
     const tweetId = addTweet(username)
     console.log(tweets)
     const generateUrl = process.env.REACT_APP_API_ENDPOINT + process.env.REACT_APP_GENERATE
@@ -62,6 +62,10 @@ const Home = props => {
           console.log(error)
         }
       )
+
+    // Avoid that form submission reloads the page
+    event.preventDefault()
+    return false
   }
 
   return (
@@ -99,7 +103,7 @@ const Home = props => {
                 <h4 className={classes.description}>
                   Let's see what our AI predicts as his/her next tweet
                 </h4>
-                <form>
+                <form onSubmit={submitUsername}>
                   <GridContainer>
                     <CustomInput
                       labelText="@Username"
