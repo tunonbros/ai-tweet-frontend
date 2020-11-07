@@ -1,26 +1,41 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import ReactGA from 'react-ga';
-import { createBrowserHistory } from "history";
-import { Router, Route, Switch } from "react-router-dom";
+import React from "react"
+import ReactDOM from "react-dom"
+import ReactGA from 'react-ga'
+import { createBrowserHistory } from "history"
+import { Router, Route, Switch } from "react-router-dom"
+import CookieConsent from "react-cookie-consent"
 
-import "assets/scss/material-kit-react.scss?v=1.9.0";
+import "assets/scss/material-kit-react.scss?v=1.9.0"
 
 // pages for this product
-import Components from "views/Components/Components.js";
-import Home from "views/Home/Home.js";
+import Components from "views/Components/Components.js"
+import Home from "views/Home/Home.js"
 
-var hist = createBrowserHistory();
+var hist = createBrowserHistory()
 
-ReactGA.initialize('G-BGXBJNNS52');
-ReactGA.pageview(window.location.pathname + window.location.search);
+
+const initializeAnalytics = () => {
+  // ReactGA.initialize('G-BGXBJNNS52') // Es demasiado nuevo y no está soportado todavía
+  ReactGA.initialize('UA-181282216-1')
+  ReactGA.pageview(window.location.pathname + window.location.search)
+}
 
 ReactDOM.render(
-  <Router history={hist}>
-    <Switch>
-      <Route path="/" component={Home} />
-      <Route path="/components" component={Components} />
-    </Switch>
-  </Router>,
-  document.getElementById("root")
-);
+  <>
+    <Router history={hist}>
+      <Switch>
+        <Route path="/" component={Home} />
+        <Route path="/components" component={Components} />
+      </Switch>
+    </Router>
+    <CookieConsent
+      enableDeclineButton
+      onAccept={initializeAnalytics}
+      style={{ background: "#555555" }}
+      buttonStyle={{ background: "#9c27b0", color: "#ffffff", fontSize: "13px" }}
+      declineButtonStyle={{ background: "#555555", color: "#888888", fontSize: "10px" }}
+    >
+      This website uses cookies to enhance the user experience.
+    </CookieConsent>
+  </>, document.getElementById("root")
+)

@@ -14,6 +14,7 @@
     "nouislider": "14.5.0",
     "prop-types": "15.7.2",
     "react": "16.13.1",
+    "react-cookie-consent": "^6.0.0",
     "react-datetime": "2.16.3",
     "react-dom": "16.13.1",
     "react-ga": "^3.2.0",
