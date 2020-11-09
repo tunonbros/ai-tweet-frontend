@@ -14,6 +14,7 @@ import Parallax from "components/Parallax/Parallax.js"
 
 import styles from "./styles.js"
 import Tweet from "./Tweet"
+import Disclaimer from "./Disclaimer"
 
 const dashboardRoutes = []
 const useStyles = makeStyles(styles)
@@ -90,6 +91,9 @@ const Home = props => {
               <h4>
                 Find out thanks to the AI
               </h4>
+            </GridItem>
+            <GridItem xs={12} sm={12} md={6}>
+              <Disclaimer/>
             </GridItem>
           </GridContainer>
         </div>

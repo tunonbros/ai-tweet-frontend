@@ -15,7 +15,7 @@ var hist = createBrowserHistory()
 
 
 const initializeAnalytics = () => {
-  // ReactGA.initialize('G-BGXBJNNS52') // Es demasiado nuevo y no está soportado todavía
+  // ReactGA.initialize('G-BGXBJNNS52') // It's too new and it's not yet supported
   ReactGA.initialize('UA-181282216-1')
   ReactGA.pageview(window.location.pathname + window.location.search)
 }
