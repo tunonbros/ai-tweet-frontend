@@ -5,6 +5,7 @@ import styled from 'styled-components'
 
 import Card from "components/Card/Card.js"
 import CardHeader from "components/Card/CardHeader.js"
+import Loader from "./../MyComponents/Loader"
 
 const RibbonContainer = styled.div`
   position: relative;
@@ -45,7 +46,7 @@ const Tweet = props => {
         </CardHeader>
         <RibbonContainer>
           <RibbonContainerInner>
-            {props.text}
+            {props.text ? props.text : <Loader/>}
           </RibbonContainerInner>
           <Ribbon>
             AI generated&nbsp;<br/>tweet&nbsp;

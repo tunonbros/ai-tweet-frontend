@@ -129,13 +129,17 @@ const Home = props => {
             </GridContainer>
           </div>
           <div className={classes.description}>
-            {tweets.map((t, idx) => (
-              <Tweet
-                key={idx}
-                username={t.username}
-                text={t.text}
-              />
-            ))}
+            <GridContainer justify="left">
+              {tweets.map((t, idx) => (
+                <GridItem cs={12} sm={12} md={6}>
+                  <Tweet
+                    key={idx}
+                    username={t.username}
+                    text={t.text}
+                  />
+                </GridItem>
+              ))}
+            </GridContainer>
           </div>
           <br/>
           <br/>
