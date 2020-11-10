@@ -25,27 +25,27 @@ const Home = props => {
   const classes = useStyles()
   const { ...rest } = props
 
+  // Tweets functions
   const addTweet = (username) => {
     const newTweet = {
       tweetId: tweets.length,
       text: '',
+      error: '',
       username
     }
     setTweets(oldTweets => [newTweet, ...oldTweets])
     return newTweet.tweetId
   }
 
-  const fillTweet = (tweetId, text) => {
-    console.log(tweets)
-    setTweets(oldTweets => oldTweets.map(t => t.tweetId === tweetId ? {
-      ...t,
-      text
-    } : t))
-  }
+  const removeTweet = (tweetId) =>
+    setTweets(oldTweets => oldTweets.filter(t => t.tweetId !== tweetId))
 
+  const setTweetProperty = (tweetId, key, value) =>
+    setTweets(oldTweets => oldTweets.map(t => t.tweetId === tweetId ? { ...t, [key]: value } : t))
+
+  // Generate tweet handler
   const submitUsername = (event) => {
     const tweetId = addTweet(username)
-    console.log(tweets)
     const generateUrl = process.env.REACT_APP_API_ENDPOINT + process.env.REACT_APP_GENERATE
     const data = JSON.stringify({
       username: username
@@ -54,15 +54,8 @@ const Home = props => {
       method: 'POST',
       body: data
     }).then(res => res.json())
-      .then(
-        (result) => {
-          console.log(result)
-          fillTweet(tweetId, result.text)
-        },
-        (error) => {
-          console.log(error)
-        }
-      )
+      .then((result) => setTweetProperty(tweetId, 'text', result.text),
+            (error) => setTweetProperty(tweetId, 'error', error.toString()))
 
     // Avoid that form submission reloads the page
     event.preventDefault()
@@ -129,13 +122,14 @@ const Home = props => {
             </GridContainer>
           </div>
           <div className={classes.description}>
-            <GridContainer justify="left">
+            <GridContainer justify="flex-start">
               {tweets.map((t, idx) => (
-                <GridItem cs={12} sm={12} md={6}>
+                <GridItem key={idx} cs={12} sm={12} md={6}>
                   <Tweet
-                    key={idx}
                     username={t.username}
                     text={t.text}
+                    error={t.error}
+                    dismiss={() => removeTweet(t.tweetId)}
                   />
                 </GridItem>
               ))}

@@ -1,10 +1,10 @@
 import React from "react"
-import { makeStyles } from "@material-ui/core/styles"
-import styles from "./styles.js"
 import styled from 'styled-components'
 
+import Button from "components/CustomButtons/Button.js"
 import Card from "components/Card/Card.js"
 import CardHeader from "components/Card/CardHeader.js"
+import CardBody from "components/Card/CardBody.js"
 import Loader from "./../MyComponents/Loader"
 
 const RibbonContainer = styled.div`
@@ -17,7 +17,7 @@ const RibbonContainer = styled.div`
 `
 
 const RibbonContainerInner = styled.div`
-  padding: 2em;
+  padding: 2em 3.5em 2em 2em;
 `
 
 const Ribbon = styled.div`
@@ -33,28 +33,45 @@ const Ribbon = styled.div`
   color: #ffffff;
 `
 
-const useStyles = makeStyles(styles)
-
 const Tweet = props => {
-  const classes = useStyles()
-
   return (
-    <>
-      <Card>
-        <CardHeader color="info" className={classes.cardHeader}>
-          @{props.username}
-        </CardHeader>
-        <RibbonContainer>
-          <RibbonContainerInner>
-            {props.text ? props.text : <Loader/>}
-          </RibbonContainerInner>
-          <Ribbon>
-            AI generated&nbsp;<br/>tweet&nbsp;
-          </Ribbon>
-        </RibbonContainer>
-      </Card>
-      <br/>
-    </>
+    props.error ?
+      <>
+        <Card>
+          <CardHeader color="danger">
+            <span style={{verticalAlign: 'middle'}}>
+              Oops, something unexpected happened
+            </span>
+            <Button
+              style={{float: 'right', height: '28px', margin: '0px'}}
+              onClick={props.dismiss}
+              simple>
+                &#x2716;
+            </Button>
+          </CardHeader>
+          <CardBody>
+            {props.error}
+          </CardBody>
+        </Card>
+        <br/>
+      </>
+    :
+      <>
+        <Card>
+          <CardHeader color="info">
+            @{props.username}
+          </CardHeader>
+          <RibbonContainer>
+            <RibbonContainerInner>
+              {props.text ? props.text : <Loader/>}
+            </RibbonContainerInner>
+            <Ribbon>
+              AI generated&nbsp;<br/>tweet&nbsp;
+            </Ribbon>
+          </RibbonContainer>
+        </Card>
+        <br/>
+      </>
   )
 }
 
