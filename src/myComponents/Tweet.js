@@ -5,7 +5,7 @@ import Button from "components/CustomButtons/Button.js"
 import Card from "components/Card/Card.js"
 import CardHeader from "components/Card/CardHeader.js"
 import CardBody from "components/Card/CardBody.js"
-import Loader from "./../MyComponents/Loader"
+import Loader from "myComponents/Loader"
 
 const RibbonContainer = styled.div`
   position: relative;

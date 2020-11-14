@@ -12,9 +12,9 @@ import Button from "components/CustomButtons/Button.js"
 import HeaderLinks from "components/Header/HeaderLinks.js"
 import Parallax from "components/Parallax/Parallax.js"
 
-import styles from "./styles.js"
-import Tweet from "./Tweet"
-import Disclaimer from "./Disclaimer"
+import styles from "myComponents/styles.js"
+import Tweet from "myComponents/Tweet"
+import Disclaimer from "myComponents/Disclaimer"
 
 const dashboardRoutes = []
 const useStyles = makeStyles(styles)
@@ -46,7 +46,7 @@ const Home = props => {
   // Generate tweet handler
   const submitUsername = (event) => {
     const tweetId = addTweet(username)
-    const generateUrl = process.env.REACT_APP_API_ENDPOINT + process.env.REACT_APP_GENERATE
+    const generateUrl = process.env.REACT_APP_API_ENDPOINT + process.env.REACT_APP_GENERATE_URL
     const data = JSON.stringify({
       username: username
     })

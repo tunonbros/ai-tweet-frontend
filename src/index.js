@@ -8,8 +8,9 @@ import CookieConsent from "react-cookie-consent"
 import "assets/scss/material-kit-react.scss?v=1.9.0"
 
 // pages for this product
-import Components from "views/Components/Components.js"
-import Home from "views/Home/Home.js"
+import Home from "views/Home.js"
+import Shared from "views/Shared.js"
+import MetaTags from "myComponents/MetaTags"
 
 var hist = createBrowserHistory()
 
@@ -22,10 +23,15 @@ const initializeAnalytics = () => {
 
 ReactDOM.render(
   <>
+    <MetaTags
+      title="AI Tweet"
+      description="Find out what any Twitter user is going to tweet, thanks to our AI predictions."
+      // image=""
+    />
     <Router history={hist}>
       <Switch>
+        <Route path="/shared/:tweetId" component={Shared} />
         <Route path="/" component={Home} />
-        <Route path="/components" component={Components} />
       </Switch>
     </Router>
     <CookieConsent
