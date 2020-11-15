@@ -15,6 +15,7 @@ import Parallax from "components/Parallax/Parallax.js"
 import styles from "myComponents/styles.js"
 import Tweet from "myComponents/Tweet"
 import Disclaimer from "myComponents/Disclaimer"
+import { handleErrors } from "myComponents/functions"
 
 const dashboardRoutes = []
 const useStyles = makeStyles(styles)
@@ -53,9 +54,10 @@ const Home = props => {
     fetch(generateUrl, {
       method: 'POST',
       body: data
-    }).then(res => res.json())
-      .then((result) => setTweetProperty(tweetId, 'text', result.text),
-            (error) => setTweetProperty(tweetId, 'error', error.toString()))
+    }).then(handleErrors)
+      .then(response => response.json())
+      .then(result => setTweetProperty(tweetId, 'text', result.text),
+            error => setTweetProperty(tweetId, 'error', error.toString()))
 
     // Avoid that form submission reloads the page
     event.preventDefault()

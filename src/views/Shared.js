@@ -13,6 +13,7 @@ import Parallax from "components/Parallax/Parallax.js"
 import styles from "myComponents/styles.js"
 import Tweet from "myComponents/Tweet"
 import Disclaimer from "myComponents/Disclaimer"
+import { handleErrors } from "myComponents/functions"
 
 const dashboardRoutes = []
 const useStyles = makeStyles(styles)
@@ -27,9 +28,10 @@ const Home = props => {
   useEffect(() => {
     const sharedUrl = process.env.REACT_APP_API_ENDPOINT + process.env.REACT_APP_SHARED_URL + "/" + tweetId
     fetch(sharedUrl)
-      .then(res => res.json())
-      .then((result) => setTweet({ username: "pepito", text: "grillo" }),
-            (error) => setError(error.toString()))
+      .then(handleErrors)
+      .then(response => response.json())
+      .then(result => setTweet(result),
+            error => setError(error.toString()))
   }, [tweetId])
 
   return (

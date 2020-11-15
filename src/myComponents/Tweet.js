@@ -42,12 +42,14 @@ const Tweet = props => {
             <span style={{verticalAlign: 'middle'}}>
               Oops, something unexpected happened
             </span>
-            <Button
-              style={{float: 'right', height: '28px', margin: '0px'}}
-              onClick={props.dismiss}
-              simple>
-                &#x2716;
-            </Button>
+            {props.dismiss &&
+              <Button
+                style={{float: 'right', height: '28px', margin: '0px'}}
+                onClick={props.dismiss}
+                simple>
+                  &#x2716;
+              </Button>
+            }
           </CardHeader>
           <CardBody>
             {props.error}
