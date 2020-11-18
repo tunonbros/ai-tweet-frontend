@@ -30,7 +30,7 @@ const Home = props => {
   const addTweet = (username) => {
     const newTweet = {
       tweetId: tweets.length,
-      text: '',
+      tweet: '',
       error: '',
       username
     }
@@ -56,7 +56,7 @@ const Home = props => {
       body: data
     }).then(handleErrors)
       .then(response => response.json())
-      .then(result => setTweetProperty(tweetId, 'text', result.text),
+      .then(result => setTweetProperty(tweetId, 'tweet', result.tweet),
             error => setTweetProperty(tweetId, 'error', error.toString()))
 
     // Avoid that form submission reloads the page
@@ -129,7 +129,7 @@ const Home = props => {
                 <GridItem key={idx} cs={12} sm={12} md={6}>
                   <Tweet
                     username={t.username}
-                    text={t.text}
+                    tweet={t.tweet}
                     error={t.error}
                     dismiss={() => removeTweet(t.tweetId)}
                   />

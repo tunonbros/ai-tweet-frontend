@@ -65,7 +65,7 @@ const Tweet = props => {
           </CardHeader>
           <RibbonContainer>
             <RibbonContainerInner>
-              {props.text ? props.text : <Loader/>}
+              {props.tweet ? props.tweet : <Loader/>}
             </RibbonContainerInner>
             <Ribbon>
               AI generated&nbsp;<br/>tweet&nbsp;
