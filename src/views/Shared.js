@@ -55,6 +55,7 @@ const Home = props => {
               <Tweet
                 username={tweet.username}
                 tweet={tweet.tweet}
+                tweetId={tweet.tweetId}
                 error={error}
               />
             </GridItem>

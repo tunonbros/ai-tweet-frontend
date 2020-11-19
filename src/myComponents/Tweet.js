@@ -1,11 +1,15 @@
-import React from "react"
+import React, { useState } from "react"
 import styled from 'styled-components'
+import ShareIcon from '@material-ui/icons/Share'
+import CloseIcon from '@material-ui/icons/Close'
 
 import Button from "components/CustomButtons/Button.js"
 import Card from "components/Card/Card.js"
 import CardHeader from "components/Card/CardHeader.js"
 import CardBody from "components/Card/CardBody.js"
 import Loader from "myComponents/Loader"
+import { Input } from "@material-ui/core"
+import { handleErrors } from "myComponents/functions"
 
 const RibbonContainer = styled.div`
   position: relative;
@@ -34,6 +38,26 @@ const Ribbon = styled.div`
 `
 
 const Tweet = props => {
+  const [sharing, setSharing] = useState(false)
+  const [tweetId, setTweetId] = useState(props.tweetId)
+
+  // Generate tweet handler
+  const shareTweet = () => {
+    setSharing(true)
+    const sharedUrl = process.env.REACT_APP_API_ENDPOINT + process.env.REACT_APP_SHARED_URL
+    const data = JSON.stringify({
+      tweet: props.tweet,
+      username: props.username
+    })
+    fetch(sharedUrl, {
+      method: 'POST',
+      body: data
+    }).then(handleErrors)
+      .then(response => response.json())
+      .then(result => setTweetId(result.tweetId),
+            () => setTweetId('Error: could not share'))
+  }
+
   return (
     props.error ?
       <>
@@ -47,7 +71,7 @@ const Tweet = props => {
                 style={{float: 'right', height: '28px', margin: '0px'}}
                 onClick={props.dismiss}
                 simple>
-                  &#x2716;
+                  <CloseIcon/>
               </Button>
             }
           </CardHeader>
@@ -61,7 +85,21 @@ const Tweet = props => {
       <>
         <Card>
           <CardHeader color="info">
-            @{props.username}
+            <span style={{verticalAlign: 'middle'}}>
+              @{props.username}
+            </span>
+            {tweetId ?
+              <Input value={tweetId}/>
+            :
+              <Button
+                style={{float: 'right', height: '28px', margin: '0px'}}
+                onClick={shareTweet}
+                simple
+                disabled={sharing || !props.tweet}
+                >
+                  <ShareIcon/>
+              </Button>
+            }
           </CardHeader>
           <RibbonContainer>
             <RibbonContainerInner>

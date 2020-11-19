@@ -126,7 +126,7 @@ const Home = props => {
           <div className={classes.description}>
             <GridContainer justify="flex-start">
               {tweets.map((t, idx) => (
-                <GridItem key={idx} cs={12} sm={12} md={6}>
+                <GridItem key={tweets.length - idx} cs={12} sm={12} md={6}>
                   <Tweet
                     username={t.username}
                     tweet={t.tweet}
