@@ -30,7 +30,7 @@ ReactDOM.render(
     />
     <Router history={hist}>
       <Switch>
-        <Route path="/shared/:tweetId" component={Shared} />
+        <Route path="/:tweetId" component={Shared} />
         <Route path="/" component={Home} />
       </Switch>
     </Router>

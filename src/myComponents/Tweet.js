@@ -2,18 +2,18 @@ import React, { useState } from "react"
 import styled from 'styled-components'
 import ShareIcon from '@material-ui/icons/Share'
 import CloseIcon from '@material-ui/icons/Close'
+import FileCopyIcon from '@material-ui/icons/FileCopy'
 
 import Button from "components/CustomButtons/Button.js"
 import Card from "components/Card/Card.js"
 import CardHeader from "components/Card/CardHeader.js"
 import CardBody from "components/Card/CardBody.js"
 import Loader from "myComponents/Loader"
-import { Input } from "@material-ui/core"
 import { handleErrors } from "myComponents/functions"
 
 const RibbonContainer = styled.div`
   position: relative;
-  margin-top: -10px;
+  margin-top: -11px;
   bottom: 0px;
   overflow: hidden;
   min-height: 80px;
@@ -37,6 +37,14 @@ const Ribbon = styled.div`
   color: #ffffff;
 `
 
+const CopyInput = styled.input`
+  height: 25px;
+  width: 170px;
+  float: right;
+  border-radius: 6px;
+  border-color: white;
+`
+
 const Tweet = props => {
   const [sharing, setSharing] = useState(false)
   const [tweetId, setTweetId] = useState(props.tweetId)
@@ -58,6 +66,11 @@ const Tweet = props => {
             () => setTweetId('Error: could not share'))
   }
 
+  const copyTweet = () => {
+    // TODO: Copied! message
+    navigator.clipboard.writeText(process.env.REACT_APP_FRONT_DOMAIN + '/' + tweetId)
+  }
+
   return (
     props.error ?
       <>
@@ -68,7 +81,7 @@ const Tweet = props => {
             </span>
             {props.dismiss &&
               <Button
-                style={{float: 'right', height: '28px', margin: '0px'}}
+                style={{float: 'right', height: '25px', margin: '0px'}}
                 onClick={props.dismiss}
                 simple>
                   <CloseIcon/>
@@ -85,19 +98,28 @@ const Tweet = props => {
       <>
         <Card>
           <CardHeader color="info">
-            <span style={{verticalAlign: 'middle'}}>
+            <span style={{verticalAlign: 'middle', float: 'left'}}>
               @{props.username}
             </span>
             {tweetId ?
-              <Input value={tweetId}/>
+              <>
+                <CopyInput value={process.env.REACT_APP_FRONT_DOMAIN + '/' + tweetId}/>
+                <Button
+                  style={{float: 'right', height: '25px', width: '25px', margin: '0px'}}
+                  onClick={copyTweet}
+                  simple
+                >
+                  <FileCopyIcon/>
+                </Button>
+              </>
             :
               <Button
-                style={{float: 'right', height: '28px', margin: '0px'}}
+                style={{float: 'right', height: '25px', margin: '0px'}}
                 onClick={shareTweet}
                 simple
                 disabled={sharing || !props.tweet}
-                >
-                  <ShareIcon/>
+              >
+                <ShareIcon/>
               </Button>
             }
           </CardHeader>
