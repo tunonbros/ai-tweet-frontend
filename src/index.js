@@ -30,8 +30,8 @@ ReactDOM.render(
     />
     <Router history={hist}>
       <Switch>
+        <Route path="/" exact component={Home} />
         <Route path="/:tweetId" component={Shared} />
-        <Route path="/" component={Home} />
       </Switch>
     </Router>
     <CookieConsent

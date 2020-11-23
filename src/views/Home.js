@@ -14,6 +14,7 @@ import Parallax from "components/Parallax/Parallax.js"
 
 import styles from "myComponents/styles.js"
 import Tweet from "myComponents/Tweet"
+import Title from "myComponents/Title"
 import Disclaimer from "myComponents/Disclaimer"
 import { handleErrors } from "myComponents/functions"
 
@@ -69,7 +70,7 @@ const Home = props => {
       <Header
         color="transparent"
         routes={dashboardRoutes}
-        brand="AI Tweet"
+        leftLinks={<Title/>}
         rightLinks={<HeaderLinks />}
         fixed
         changeColorOnScroll={{
