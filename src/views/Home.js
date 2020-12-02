@@ -57,8 +57,12 @@ const Home = props => {
       body: data
     }).then(handleErrors)
       .then(response => response.json())
-      .then(result => setTweetProperty(tweetId, 'tweet', result.tweet),
-            error => setTweetProperty(tweetId, 'error', error.toString()))
+      .then(result => {
+        setTweetProperty(tweetId, 'tweet', result.tweet)
+        setTweetProperty(tweetId, 'username', result.username)
+      },
+      error => setTweetProperty(tweetId, 'error', error.toString())
+    )
 
     // Avoid that form submission reloads the page
     event.preventDefault()

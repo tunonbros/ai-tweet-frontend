@@ -99,7 +99,7 @@ const Tweet = props => {
         <Card>
           <CardHeader color="info">
             <span style={{verticalAlign: 'middle', float: 'left'}}>
-              @{props.username}
+              {props.username.startsWith("@") ? props.username : "@" + props.username}
             </span>
             {tweetId ?
               <>

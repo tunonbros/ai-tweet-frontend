@@ -27,6 +27,8 @@ const MetaTags = props => {
 
       <meta property="og:type" content="website"/>
       <meta name="twitter:card" content="summary_large_image"/>
+
+      <script data-ad-client="ca-pub-1706760404377182" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     </Helmet>
   )
 }
