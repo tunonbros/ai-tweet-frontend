@@ -48,8 +48,9 @@ const CopyInput = styled.input`
 const Tweet = props => {
   const [sharing, setSharing] = useState(false)
   const [tweetId, setTweetId] = useState(props.tweetId)
+  const [errorSharing, setErrorSharing] = useState(false)
 
-  // Generate tweet handler
+  // Share tweet handler
   const shareTweet = () => {
     setSharing(true)
     const sharedUrl = process.env.REACT_APP_API_ENDPOINT + process.env.REACT_APP_SHARED_URL
@@ -63,7 +64,7 @@ const Tweet = props => {
     }).then(handleErrors)
       .then(response => response.json())
       .then(result => setTweetId(result.tweetId),
-            () => setTweetId('Error: could not share'))
+            () => { setErrorSharing(true); setSharing(false) })
   }
 
   const copyTweet = () => {
@@ -119,7 +120,10 @@ const Tweet = props => {
                 simple
                 disabled={sharing || !props.tweet}
               >
-                <ShareIcon/>
+                {errorSharing ?
+                  <span style={{color: "#ff3535"}}>Oops, try again&nbsp;<ShareIcon/></span>
+                  : <ShareIcon/>
+                }
               </Button>
             }
           </CardHeader>
