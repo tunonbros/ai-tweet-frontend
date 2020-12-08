@@ -83,7 +83,7 @@ const Home = props => {
         }}
         {...rest}
       />
-      <Parallax filter image={require("assets/img/landing-bg.jpg")}>
+      <Parallax filter image={require("assets/img/bg1.jpg")}>
         <div className={classes.container}>
           <GridContainer>
             <GridItem xs={12} sm={12} md={6}>
