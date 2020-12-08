@@ -79,7 +79,7 @@ const Home = props => {
         fixed
         changeColorOnScroll={{
           height: 400,
-          color: "white"
+          color: "dark"
         }}
         {...rest}
       />
@@ -89,7 +89,7 @@ const Home = props => {
             <GridItem xs={12} sm={12} md={6}>
               <h1 className={classes.title}>What will be their next tweet?</h1>
               <h4>
-                Find out thanks to the AI
+                Find out thanks to our GPT-3 powered AI
               </h4>
             </GridItem>
             <GridItem xs={12} sm={12} md={6}>

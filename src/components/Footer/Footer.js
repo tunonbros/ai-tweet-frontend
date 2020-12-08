@@ -36,11 +36,11 @@ export default function Footer(props) {
             </ListItem>
             <ListItem className={classes.inlineBlock}>
               <a
-                href="http://"
+                href="https://openai.com/"
                 className={classes.block}
                 target="_blank"
               >
-                Abierta AI
+                OpenAI
               </a>
             </ListItem>
             <ListItem className={classes.inlineBlock}>
