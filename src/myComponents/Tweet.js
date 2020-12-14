@@ -9,7 +9,7 @@ import Card from "components/Card/Card.js"
 import CardHeader from "components/Card/CardHeader.js"
 import CardBody from "components/Card/CardBody.js"
 import Loader from "myComponents/Loader"
-import { handleErrors } from "myComponents/functions"
+
 
 const RibbonContainer = styled.div`
   position: relative;
@@ -47,29 +47,10 @@ const CopyInput = styled.input`
 
 const Tweet = props => {
   const [sharing, setSharing] = useState(false)
-  const [tweetId, setTweetId] = useState(props.tweetId)
-  const [errorSharing, setErrorSharing] = useState(false)
-
-  // Share tweet handler
-  const shareTweet = () => {
-    setSharing(true)
-    const sharedUrl = process.env.REACT_APP_API_ENDPOINT + process.env.REACT_APP_SHARED_URL
-    const data = JSON.stringify({
-      tweet: props.tweet,
-      username: props.username
-    })
-    fetch(sharedUrl, {
-      method: 'POST',
-      body: data
-    }).then(handleErrors)
-      .then(response => response.json())
-      .then(result => setTweetId(result.tweetId),
-            () => { setErrorSharing(true); setSharing(false) })
-  }
 
   const copyTweet = () => {
     // TODO: Copied! message
-    navigator.clipboard.writeText(process.env.REACT_APP_FRONT_DOMAIN + '/' + tweetId)
+    navigator.clipboard.writeText(process.env.REACT_APP_FRONT_DOMAIN + '/' + props.tweetId)
   }
 
   return (
@@ -102,9 +83,9 @@ const Tweet = props => {
             <span style={{verticalAlign: 'middle', float: 'left'}}>
               {props.username && (props.username.startsWith("@") ? props.username : "@" + props.username)}
             </span>
-            {tweetId ?
+            {sharing ?
               <>
-                <CopyInput value={process.env.REACT_APP_FRONT_DOMAIN + '/' + tweetId}/>
+                <CopyInput value={process.env.REACT_APP_FRONT_DOMAIN + '/' + props.tweetId}/>
                 <Button
                   style={{float: 'right', height: '25px', width: '25px', margin: '0px'}}
                   onClick={copyTweet}
@@ -116,14 +97,11 @@ const Tweet = props => {
             :
               <Button
                 style={{float: 'right', height: '25px', margin: '0px'}}
-                onClick={shareTweet}
+                onClick={() => {setSharing(true)}}
                 simple
-                disabled={sharing || !props.tweet}
+                disabled={!props.tweet}
               >
-                {errorSharing ?
-                  <span style={{color: "#ff3535"}}>Oops, try again&nbsp;<ShareIcon/></span>
-                  : <ShareIcon/>
-                }
+                <ShareIcon/>
               </Button>
             }
           </CardHeader>

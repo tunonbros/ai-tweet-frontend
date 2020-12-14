@@ -33,6 +33,7 @@ const Home = props => {
       tweetId: tweets.length,
       tweet: '',
       error: '',
+      backId: '',
       username
     }
     setTweets(oldTweets => [newTweet, ...oldTweets])
@@ -60,6 +61,7 @@ const Home = props => {
       .then(result => {
         setTweetProperty(tweetId, 'tweet', result.tweet)
         setTweetProperty(tweetId, 'username', result.username)
+        setTweetProperty(tweetId, 'backId', result.tweetId)
       },
       error => setTweetProperty(tweetId, 'error', error.toString())
     )
@@ -135,6 +137,7 @@ const Home = props => {
                   <Tweet
                     username={t.username}
                     tweet={t.tweet}
+                    tweetId={t.backId}
                     error={t.error}
                     dismiss={() => removeTweet(t.tweetId)}
                   />
